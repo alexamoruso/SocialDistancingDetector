@@ -15,21 +15,21 @@ For the detection algorithm YOLO (You Only Look Once) was used, especially in it
 
 ![How YOLO works](https://www.pyimagesearch.com/wp-content/uploads/2018/11/yolo_design.jpg)
 
-### Distance calculation
+## Distance calculation
 The distance calculation part, on the other hand, is implemented by means of geometric calculation. It takes in input the classification and bounding box data and calculates the distance between the subjects in the image and then detects the transgressions of Social Distancing. Two algorithms have been proposed: 
 * Calculation of the distance from the image with the camera POV (CCTV view) 
 * Distance calculation from bird-eye view.
 
-#### CCTV view method
+### CCTV view method
 For each bounding box it is necessary to find a point representing the Euclidean position of each person. The choice was made for the lower midpoint of each bounding box in order to have an invariant measurement with respect to the height of the subject. The Euclidean distance between each point in the image is then calculated. For each person, it is then compared the minimum distance measured with a threshold and, for values below this threshold, marking the violation with a red bounding box. In order to take into account the perspective of the image, a grid with different threshold values was designed so that each midpoint was associated with a different "perspective weight" depending on its position in the grid. A position further away from the camera corresponds to a lower weight and vice versa.
 
-#### Bird-eye view method
+### Bird-eye view method
 The problem of perspective is approached in a different way by the Bird-eye view method: a transformation of the perspective of the image is carried out, as depicted in the following figure. The capabilities of OpenCV are exploited in order to transform, by means of a transformation matrix, a part of the image captured by a CCTV into an overhead view of this image. Then the same matrix is used to calculate, for each person, the "GPS" coordinates in the frame, which are accurate for the representation of the position of the subjects and the consequent distance measurement. A limitation of this method is that it only considers a part of the image, as a portion of the image is lost during the transformation into a top view.
 
-![Bird eye transformation](/images/transformation.png)
+![Bird eye transformation](https://miro.medium.com/max/3344/1*Qc1jkFF4gpYbEQiPRJx-Yg.png)
 
 
-### Reference
+## Reference
 [taipingeric
 /
 yolo-v4-tf.keras](https://github.com/taipingeric/yolo-v4-tf.keras)
